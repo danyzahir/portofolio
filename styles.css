@@ -8,9 +8,14 @@
   --color-pink: #888888;
 }
 
+html {
+  background-color: #000000;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at 75% 60%, #161616 0%, #000000 85%) no-repeat fixed;
+  background-color: #000000;
+  background: radial-gradient(circle at 75% 60%, #161616 0%, #000000 85%) fixed;
   color: #ffffff;
   overflow-x: hidden;
 }
