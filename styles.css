@@ -409,7 +409,7 @@ textarea:-webkit-autofill {
 .project-accordion-container {
   display: flex;
   flex-direction: column;
-  height: 680px;
+  height: auto;
   width: 100%;
   gap: 1rem;
 }
@@ -417,7 +417,7 @@ textarea:-webkit-autofill {
 @media (min-width: 768px) {
   .project-accordion-container {
     flex-direction: row;
-    height: 520px;
+    height: 620px;
   }
 }
 
@@ -543,18 +543,19 @@ textarea:-webkit-autofill {
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 1.5rem;
   z-index: 2;
   opacity: 0;
   pointer-events: none;
+  overflow: hidden;
   transform: translateY(15px);
   transition: opacity 0.5s cubic-bezier(0.25, 1, 0.3, 1), transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
 }
 
 @media (min-width: 768px) {
   .expanded-content {
-    padding: 2.5rem;
+    padding: 2rem 2.5rem;
   }
 }
 
@@ -570,7 +571,6 @@ textarea:-webkit-autofill {
 /* Browser Mockup Frame styling */
 .browser-mockup {
   width: 100%;
-  aspect-ratio: 16/10;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background-color: #0b0a12;
@@ -579,6 +579,19 @@ textarea:-webkit-autofill {
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+}
+
+.screenshot-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #fff;
+}
+
+.screenshot-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .project-accordion-card.active:hover .browser-mockup {
