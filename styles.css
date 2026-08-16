@@ -1216,11 +1216,11 @@ button[type="submit"]:hover::after {
 /* Keyframes */
 @keyframes marquee-left {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-50% - 0.625rem)); }
 }
 
 @keyframes marquee-right {
-  0%   { transform: translateX(-50%); }
+  0%   { transform: translateX(calc(-50% - 0.625rem)); }
   100% { transform: translateX(0); }
 }
 
@@ -1331,7 +1331,7 @@ button[type="submit"]:hover::after {
 .proj-card-img-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2 / 1;
   overflow: hidden;
   background: #05050a;
   display: flex;
@@ -1348,7 +1348,7 @@ button[type="submit"]:hover::after {
 }
 
 .proj-card:hover .proj-card-img {
-  transform: scale(1.06);
+  transform: scale(1.05);
   filter: brightness(0.9);
 }
 
