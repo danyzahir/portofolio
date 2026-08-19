@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /scratch/
 
+# Sitemap
 Sitemap: https://www.portofoliozcodes.my.id/sitemap.xml
