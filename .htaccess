@@ -1,18 +1,18 @@
 Options -Indexes
 
 # ============================================================
-#  REDIRECT: Single-hop HTTPS & WWW (Canonical Fix for Google Search Console)
+#  REDIRECT: Single-hop HTTPS & non-WWW (Canonical Fix)
 # ============================================================
 RewriteEngine On
 
-# Rule 1: Direct 1-hop redirect from non-www (HTTP or HTTPS) to https://www.portofoliozcodes.my.id/
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteRule ^(.*)$ https://www.portofoliozcodes.my.id/$1 [R=301,L]
+# Rule 1: Redirect www (HTTP or HTTPS) directly to https://portofoliozcodes.my.id/
+RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+RewriteRule ^(.*)$ https://portofoliozcodes.my.id/$1 [R=301,L]
 
-# Rule 2: Force HTTPS if accessing via www with HTTP
+# Rule 2: Force HTTPS if accessing non-www via HTTP
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://www.portofoliozcodes.my.id/$1 [R=301,L]
+RewriteRule ^(.*)$ https://portofoliozcodes.my.id/$1 [R=301,L]
 
 # ============================================================
 #  CACHE CONTROL

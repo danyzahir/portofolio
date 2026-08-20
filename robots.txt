@@ -3,4 +3,4 @@ Allow: /
 Disallow: /scratch/
 
 # Sitemap
-Sitemap: https://www.portofoliozcodes.my.id/sitemap.xml
+Sitemap: https://portofoliozcodes.my.id/sitemap.xml

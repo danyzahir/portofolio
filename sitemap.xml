@@ -5,9 +5,9 @@
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Canonical URL: www version -->
+  <!-- Canonical URL: non-www version -->
   <url>
-    <loc>https://www.portofoliozcodes.my.id/</loc>
+    <loc>https://portofoliozcodes.my.id/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
