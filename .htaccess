@@ -5,12 +5,15 @@ Options -Indexes
 # ============================================================
 RewriteEngine On
 
-# Rule 1: Redirect www (HTTP or HTTPS) directly to https://portofoliozcodes.my.id/
-RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+# Rule 1: Redirect www ke non-www (HTTPS) — single hop
+# Handles both http://www. and https://www.
+RewriteCond %{HTTP_HOST} ^www\.portofoliozcodes\.my\.id$ [NC]
 RewriteRule ^(.*)$ https://portofoliozcodes.my.id/$1 [R=301,L]
 
-# Rule 2: Force HTTPS if accessing non-www via HTTP
-RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# Rule 2: Force HTTPS untuk non-www
+# Cek via X-Forwarded-Proto (Cloudflare/reverse proxy) ATAU HTTPS variable langsung
+RewriteCond %{HTTP:X-Forwarded-Proto} =http [OR]
+RewriteCond %{HTTP:X-Forwarded-Proto} =""
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://portofoliozcodes.my.id/$1 [R=301,L]
 
