@@ -1,5 +1,5 @@
 # robots.txt — Dany Zahir Portfolio
-# https://portofoliozcodes.my.id
+# https://www.portofoliozcodes.my.id
 
 # Allow all crawlers
 User-agent: *
@@ -11,7 +11,7 @@ Disallow: /input.css
 Disallow: /*.json$
 
 # Sitemap location (WAJIB untuk Google!)
-Sitemap: https://portofoliozcodes.my.id/sitemap.xml
+Sitemap: https://www.portofoliozcodes.my.id/sitemap.xml
 
 # Crawl-delay (optional, untuk sopan ke server)
 Crawl-delay: 1
