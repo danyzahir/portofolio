@@ -1,17 +1,13 @@
 # robots.txt — Dany Zahir Portfolio
 # https://www.portofoliozcodes.my.id
 
-# Allow all crawlers
 User-agent: *
 Allow: /
 
-# Disallow unnecessary files
-Disallow: /node_modules/
+# Disallow source/build configuration files if any
 Disallow: /input.css
-Disallow: /*.json$
+Disallow: /tailwind.config.js
 
-# Sitemap location (WAJIB untuk Google!)
+# Sitemap location
 Sitemap: https://www.portofoliozcodes.my.id/sitemap.xml
 
-# Crawl-delay (optional, untuk sopan ke server)
-Crawl-delay: 1

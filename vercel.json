@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "portofoliozcodes.my.id"
+        }
+      ],
+      "destination": "https://www.portofoliozcodes.my.id/:path*",
+      "permanent": true
+    }
+  ]
+}
