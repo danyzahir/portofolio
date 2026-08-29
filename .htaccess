@@ -6,10 +6,6 @@
   # 1. Force HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
-
-  # 2. Force WWW (Canonical Domain Alignment)
-  RewriteCond %{HTTP_HOST} ^portofoliozcodes\.my\.id$ [NC]
-  RewriteRule ^(.*)$ https://www.portofoliozcodes.my.id/$1 [R=301,L]
 </IfModule>
 
 # Caching & Security Headers

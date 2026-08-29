@@ -1,5 +1,5 @@
 # robots.txt — Dany Zahir Portfolio
-# https://www.portofoliozcodes.my.id
+# https://portofoliozcodes.my.id
 
 User-agent: *
 Allow: /
@@ -9,5 +9,5 @@ Disallow: /input.css
 Disallow: /tailwind.config.js
 
 # Sitemap location
-Sitemap: https://www.portofoliozcodes.my.id/sitemap.xml
+Sitemap: https://portofoliozcodes.my.id/sitemap.xml
 
