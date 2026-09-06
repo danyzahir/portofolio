@@ -200,9 +200,10 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"></noscript>
   <!-- Sitemap for Google Indexing -->
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-  <!-- Tailwind CSS Production Build -->
+  <!-- Tailwind & Custom CSS Preload & Non-blocking Links -->
+  <link rel="preload" href="tailwind.css" as="style">
+  <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="tailwind.css">
-  <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -1398,19 +1399,14 @@
 
 
 
-      // Robust Resize Observer & Measurement
+      // Zero-reflow Measurement
       const measure = () => {
-        if (cardEls[0]) {
-          width = cardEls[0].offsetWidth || 440;
-          paint();
-        }
+        width = Math.min(620, Math.max(320, window.innerWidth * 0.44));
+        paint();
       };
 
       measure();
-      setTimeout(measure, 50);
-
-      const observer = new ResizeObserver(measure);
-      observer.observe(frameEl);
+      window.addEventListener('resize', measure, { passive: true });
     }
 
     // Initialize Projects on Load
