@@ -461,9 +461,9 @@
       <!-- FEATURED PROJECTS SECTION -->
       <section id="projects" class="py-16 sm:py-28 relative z-[5] border-t border-gray-800/60 overflow-hidden">
         <div class="bg-subtle-glow right-10 bottom-1/4 w-[400px] h-[400px] bg-white/10"></div>
-        <div class="text-center max-w-[800px] mx-auto mb-16">
+        <div class="text-center max-w-[800px] mx-auto mb-10">
           <h2 class="font-poppins font-semibold xs:text-[48px] text-[36px] text-white xs:leading-[70px] leading-[50px] tracking-tight reveal">
-            Featured Projects
+            The Projects
           </h2>
           <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30px] mt-4 reveal delay-200">
             High-performance applications built with focus on clean layout design, fast responsiveness, and optimized
@@ -471,13 +471,57 @@
           </p>
         </div>
 
-        <!-- Projects Grid Container -->
-        <div class="project-grid-container reveal delay-300">
-          <!-- Will be rendered dynamically via Javascript -->
-        </div>
+        <!-- 3D Coverflow Carousel Container -->
+        <div id="coverflow-container" class="w-full relative reveal delay-300" style="--cf-card: clamp(320px, 44vw, 620px);">
+          <div class="relative max-w-[1400px] mx-auto px-4 sm:px-6">
 
-        <!-- Projects Pagination Container -->
-        <div id="project-pagination" class="reveal delay-400"></div>
+            <!-- Navigation + Frame wrapper -->
+            <div class="relative flex items-center gap-2 sm:gap-4">
+
+              <!-- Prev Button -->
+              <button
+                id="coverflow-prev"
+                type="button"
+                aria-label="Previous project"
+                class="coverflow-nav-btn"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+
+              <!-- Interactive 3D Frame -->
+              <div
+                id="coverflow-frame"
+                tabindex="0"
+                class="flex-1 cursor-grab overflow-hidden py-10 outline-none active:cursor-grabbing"
+                style="perspective: calc(var(--cf-card) * 3.2); touch-action: pan-y;"
+              >
+                <div
+                  id="coverflow-track"
+                  class="relative select-none"
+                  style="height: calc(var(--cf-card) * 0.66); transform-style: preserve-3d;"
+                >
+                  <!-- Dynamically populated Coverflow Cards -->
+                </div>
+              </div>
+
+              <!-- Next Button -->
+              <button
+                id="coverflow-next"
+                type="button"
+                aria-label="Next project"
+                class="coverflow-nav-btn"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+
+            <!-- Dots Pagination -->
+            <div id="coverflow-pagination" class="mt-8 flex items-center justify-center gap-3">
+              <!-- Dots rendered by JS -->
+            </div>
+
+          </div>
+        </div>
       </section>
 
 
@@ -1040,70 +1084,319 @@
       }
     ];
 
-    let isProjectsExpanded = false;
-    const initialProjectsCount = 6;
-
-    function initProjectsGrid() {
-      const container = document.querySelector('.project-grid-container');
-      const paginationContainer = document.getElementById('project-pagination');
+    function initCoverflowProjects() {
+      const container = document.getElementById('coverflow-container');
       if (!container) return;
 
-      const visibleProjects = isProjectsExpanded 
-        ? projectsData 
-        : projectsData.slice(0, initialProjectsCount);
+      const slides = projectsData;
+      const count = slides.length;
 
-      container.innerHTML = visibleProjects.map((project, idx) => {
-        const tagsHtml = project.tags.map(tag => `<span class="proj-tag">${tag}</span>`).join('');
+      let pos = 0;
+      let target = 0;
+      let selected = 0;
+      let width = 0;
+      let rafId = null;
+      let dragData = null;
 
-        return `
-          <a href="${project.demoUrl}" target="_blank" class="proj-card group" data-index="${idx}">
-            <div class="proj-card-img-wrap">
-              <img
-                src="${project.image}"
-                alt="${project.title}"
-                class="proj-card-img"
-                style="object-position: ${project.imagePosition || 'top center'}"
-                onerror="this.onerror=null; this.src='https://placehold.co/600x400/0a0a0a/ffffff?text=Preview'"
-              >
-            </div>
-            <div class="proj-card-info">
-              <span class="proj-card-cat">${project.category}</span>
-              <h3 class="proj-card-title">${project.title}</h3>
-              <div class="proj-card-tags">${tagsHtml}</div>
-            </div>
-          </a>
-        `;
-      }).join('');
+      const rotate = 42;
+      const depth = 0.55;
+      const perspective = 3.2;
+      const falloff = 0.56;
+      const fade = 0.12;
+      const gap = 0.08;
+      const loop = true;
 
-      if (paginationContainer) {
-        if (projectsData.length > initialProjectsCount) {
-          paginationContainer.innerHTML = `
-            <div class="flex items-center justify-center mt-12">
-              <button onclick="toggleProjectsExpand()" class="proj-load-more-btn">
-                <span>${isProjectsExpanded ? 'Tampilkan Lebih Sedikit' : 'Lihat Lebih Banyak'}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 ${isProjectsExpanded ? 'rotate-180' : ''}"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
+      const frameEl = document.getElementById('coverflow-frame');
+      const trackEl = document.getElementById('coverflow-track');
+      const dotsEl = document.getElementById('coverflow-pagination');
+      const prevBtn = document.getElementById('coverflow-prev');
+      const nextBtn = document.getElementById('coverflow-next');
+
+      // Populate Cards
+      trackEl.innerHTML = slides.map((slide, idx) => `
+        <div
+          class="coverflow-card group absolute left-1/2 top-0 aspect-[16/10] overflow-hidden rounded-2xl bg-[#0d0d16] border border-white/10 shadow-2xl will-change-transform transition-all duration-300"
+          style="cursor: ${slide.demoUrl ? 'pointer' : 'default'};"
+          data-index="${idx}"
+          role="group"
+          aria-label="Project slide ${idx + 1}"
+        >
+          <div class="w-full h-full relative overflow-hidden bg-[#05050a]">
+            <img
+              src="${slide.image}"
+              alt="${slide.title}"
+              draggable="false"
+              class="w-full h-full object-cover select-none"
+              style="object-position: ${slide.imagePosition || 'top center'}"
+              onerror="this.onerror=null; this.src='https://placehold.co/600x400/0a0a0a/ffffff?text=Preview'"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#000000]/90 via-[#000000]/30 to-transparent flex flex-col justify-end p-5">
+              <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/50">${slide.category}</span>
+              <h3 class="text-base font-bold text-white tracking-tight mt-1 line-clamp-1 transition-colors">${slide.title}</h3>
             </div>
-          `;
+          </div>
+        </div>
+      `).join('');
+
+
+      function updateDots(selectedIdx) {
+        dotsEl.querySelectorAll('.coverflow-dot').forEach((dot, idx) => {
+          if (idx === selectedIdx) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      // Populate Dots
+      dotsEl.innerHTML = slides.map((_, idx) => `
+        <button
+          type="button"
+          data-index="${idx}"
+          aria-label="Go to slide ${idx + 1}"
+          class="coverflow-dot${idx === 0 ? ' active' : ''}"
+        ></button>
+      `).join('');
+
+      const cardEls = Array.from(trackEl.querySelectorAll('.coverflow-card'));
+
+      function indexAt(p) {
+        return ((Math.round(p) % count) + count) % count;
+      }
+
+      function paint() {
+        if (!width) return;
+        const pitch = width * (1 + gap);
+
+        cardEls.forEach((card, idx) => {
+          let offset = idx - pos;
+          if (loop) {
+            offset = ((offset % count) + count) % count;
+            if (offset > count / 2) offset -= count;
+          }
+
+          const distance = Math.abs(offset);
+          const ramp = Math.pow(distance, falloff);
+          const tilt = Math.min(rotate * ramp, 82) * Math.sign(offset);
+
+          card.style.transform =
+            `translateX(calc(-50% + ${offset * pitch}px)) ` +
+            `translateZ(${-depth * width * ramp}px) rotateY(${-tilt}deg)`;
+
+          const edge = loop ? Math.min(1, Math.max(0, count / 2 - distance)) : 1;
+          card.style.opacity = String(Math.max(0, 1 - fade * distance) * edge);
+          card.style.zIndex = String(100 - Math.round(distance));
+
+          if (Math.round(distance) === 0) {
+            card.classList.add('is-active');
+            card.style.outline = '2px solid rgba(255,255,255,0.55)';
+            card.style.boxShadow = 'none';
+          } else {
+            card.classList.remove('is-active');
+            card.style.outline = 'none';
+            card.style.boxShadow = 'none';
+          }
+        });
+      }
+
+      function settle(t) {
+        if (rafId !== null) cancelAnimationFrame(rafId);
+        target = t;
+        const nextSelected = indexAt(target);
+        if (nextSelected !== selected) {
+          selected = nextSelected;
+          updateDots(selected);
+        }
+
+        const step = () => {
+          const remaining = target - pos;
+          if (Math.abs(remaining) < 0.0004) {
+            pos = target;
+            paint();
+            rafId = null;
+            return;
+          }
+          pos += remaining * 0.16;
+          paint();
+          rafId = requestAnimationFrame(step);
+        };
+        rafId = requestAnimationFrame(step);
+      }
+
+      function clamp(p) {
+        return loop ? p : Math.max(0, Math.min(count - 1, p));
+      }
+
+      function goTo(index) {
+        const t = loop
+          ? index + Math.round((target - index) / count) * count
+          : index;
+        settle(clamp(t));
+      }
+
+      function nudge(by) {
+        settle(clamp(Math.round(target) + by));
+      }
+
+      let startX = 0;
+      let startY = 0;
+      let downTargetCard = null;
+      let lastWasDrag = false;
+
+      // Bulletproof Pointer drag handlers
+      frameEl.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('a')) return;
+
+        downTargetCard = e.target.closest('.coverflow-card');
+
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+
+        try {
+          frameEl.setPointerCapture(e.pointerId);
+        } catch (err) {}
+
+        startX = e.clientX;
+        startY = e.clientY;
+        target = pos;
+        dragData = {
+          id: e.pointerId,
+          x: e.clientX,
+          pos: pos,
+          v: 0,
+          t: performance.now(),
+          isDragging: false
+        };
+      });
+
+      frameEl.addEventListener('pointermove', (e) => {
+        if (!dragData || dragData.id !== e.pointerId) return;
+        const pitch = (width || 340) * (1 + gap);
+        if (!pitch) return;
+
+        const dist = Math.hypot(e.clientX - startX, e.clientY - startY);
+        if (dist > 5) {
+          dragData.isDragging = true;
+        }
+
+        if (!dragData.isDragging) return;
+
+        const now = performance.now();
+        const prevPos = pos;
+        pos = clamp(dragData.pos - (e.clientX - dragData.x) / pitch);
+        dragData.v = ((pos - prevPos) / Math.max(now - dragData.t, 1)) * 1000;
+        dragData.t = now;
+
+        const currentIdx = indexAt(pos);
+        if (currentIdx !== selected) {
+          selected = currentIdx;
+          updateDots(selected);
+        }
+        paint();
+      });
+
+      const endDrag = (e) => {
+        if (!dragData || dragData.id !== e.pointerId) return;
+
+        try {
+          if (frameEl.hasPointerCapture(e.pointerId)) {
+            frameEl.releasePointerCapture(e.pointerId);
+          }
+        } catch (err) {}
+
+        const wasDragging = dragData.isDragging;
+        const velocity = dragData.v;
+        dragData = null;
+        lastWasDrag = wasDragging;
+
+        if (wasDragging) {
+          const carried = Math.max(-2, Math.min(2, velocity * 0.18));
+          settle(clamp(Math.round(pos + carried)));
         } else {
-          paginationContainer.innerHTML = '';
+          settle(clamp(Math.round(pos)));
         }
-      }
-    }
+      };
 
-    function toggleProjectsExpand() {
-      isProjectsExpanded = !isProjectsExpanded;
-      initProjectsGrid();
-      if (!isProjectsExpanded) {
-        const section = document.getElementById('projects');
-        if (section) {
-          window.scrollTo({ top: section.offsetTop - 40, behavior: 'smooth' });
+      frameEl.addEventListener('pointerup', endDrag);
+      frameEl.addEventListener('pointercancel', endDrag);
+
+      // Keyboard controls
+      frameEl.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          nudge(-1);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          nudge(1);
         }
-      }
+      });
+
+      // Mouse Wheel Navigation
+      frameEl.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+          e.preventDefault();
+          nudge(e.deltaX > 0 ? 1 : -1);
+        }
+      }, { passive: false });
+
+      // Prev / Next Buttons
+      if (prevBtn) prevBtn.addEventListener('click', () => nudge(-1));
+      if (nextBtn) nextBtn.addEventListener('click', () => nudge(1));
+
+      // Dots click
+      dotsEl.addEventListener('click', (e) => {
+        const dot = e.target.closest('.coverflow-dot');
+        if (dot) {
+          const idx = parseInt(dot.dataset.index, 10);
+          goTo(idx);
+        }
+      });
+
+      // Card click delegation — opens demo link directly if clicked without dragging
+      frameEl.addEventListener('click', (e) => {
+        if (lastWasDrag) {
+          lastWasDrag = false;
+          downTargetCard = null;
+          return;
+        }
+
+        const card = downTargetCard || e.target.closest('.coverflow-card');
+        downTargetCard = null;
+        if (!card) return;
+
+        const idx = parseInt(card.dataset.index, 10);
+        const demoUrl = slides[idx]?.demoUrl;
+
+        if (demoUrl) {
+          window.open(demoUrl, '_blank');
+        } else if (idx !== selected) {
+          goTo(idx);
+        }
+      });
+
+
+
+      // Robust Resize Observer & Measurement
+      const measure = () => {
+        if (cardEls[0]) {
+          width = cardEls[0].offsetWidth || 340;
+          paint();
+        }
+      };
+
+      measure();
+      setTimeout(measure, 100);
+      setTimeout(measure, 500);
+
+      const observer = new ResizeObserver(measure);
+      observer.observe(frameEl);
     }
 
     // Initialize Projects on Load
-    initProjectsGrid();
+    initCoverflowProjects();
 
     // Background Glow Parallax from index2.html
     window.addEventListener('mousemove', (e) => {
