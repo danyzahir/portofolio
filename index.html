@@ -202,7 +202,7 @@
   <link rel="stylesheet" href="tailwind.css">
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body class="font-poppins text-white antialiased">
@@ -633,8 +633,11 @@
 
   <!-- JavaScript Logics -->
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    // Initialize Lucide Icons safely
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
 
     // ============================================================
     // EFFICIENT UNIFIED SCROLL & LAYOUT METRICS CACHE (No Forced Reflow)
@@ -847,7 +850,7 @@
         }, 300);
         menuIcon.setAttribute('data-lucide', 'menu');
       }
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     menuBtn.addEventListener('click', toggleMenu);
@@ -885,7 +888,7 @@
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<span>Sending...</span><i data-lucide="loader" class="w-4 h-4 animate-spin"></i>`;
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
 
       fetch("https://formsubmit.co/ajax/danyzcodes@gmail.com", {
         method: "POST",
@@ -911,7 +914,7 @@
       .then(data => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
 
         formStatus.innerText = "Message sent successfully! I will get back to you soon.";
         formStatus.className = "text-xs text-emerald-400 font-bold mt-4 text-center block";
@@ -927,7 +930,7 @@
 
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
 
         formStatus.innerText = "Opening email app to send message...";
         formStatus.className = "text-xs text-blue-400 font-bold mt-4 text-center block";
