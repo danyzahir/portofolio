@@ -864,6 +864,7 @@ footer::before {
 }
 
 .section-nav-dot {
+  position: relative;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -871,6 +872,16 @@ footer::before {
   border: 1px solid rgba(255,255,255,0.15);
   transition: all 0.4s var(--transition-bounce);
   cursor: pointer;
+}
+
+.section-nav-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
 }
 
 .section-nav-dot:hover {
@@ -1465,8 +1476,8 @@ button[type="submit"]:hover::after {
 /* Nav Arrows */
 .coverflow-nav-btn {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.14);
@@ -1501,6 +1512,7 @@ button[type="submit"]:hover::after {
 }
 
 .coverflow-dot {
+  position: relative;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -1512,6 +1524,16 @@ button[type="submit"]:hover::after {
   padding: 0;
   outline: none;
   box-shadow: none;
+}
+
+.coverflow-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
 }
 .coverflow-dot:hover {
   background: rgba(255,255,255,0.65);
