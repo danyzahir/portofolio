@@ -1131,7 +1131,7 @@
       trackEl.innerHTML = slides.map((slide, idx) => `
         <div
           class="coverflow-card group absolute left-1/2 top-0 aspect-[16/10] overflow-hidden rounded-2xl bg-[#0d0d16] border border-white/10 shadow-2xl will-change-transform transition-all duration-300"
-          style="cursor: ${slide.demoUrl ? 'pointer' : 'default'};"
+          style="width: var(--cf-card); cursor: ${slide.demoUrl ? 'pointer' : 'default'};"
           data-index="${idx}"
           role="group"
           aria-label="Project slide ${idx + 1}"
@@ -1398,16 +1398,18 @@
 
 
 
-      // Non-blocking Resize Observer & Measurement
-      const observer = new ResizeObserver((entries) => {
-        if (entries[0] && entries[0].contentRect && entries[0].contentRect.width) {
-          width = entries[0].contentRect.width;
-          requestAnimationFrame(paint);
-        } else if (cardEls[0]) {
-          width = cardEls[0].offsetWidth || 340;
-          requestAnimationFrame(paint);
+      // Robust Resize Observer & Measurement
+      const measure = () => {
+        if (cardEls[0]) {
+          width = cardEls[0].offsetWidth || 440;
+          paint();
         }
-      });
+      };
+
+      measure();
+      setTimeout(measure, 50);
+
+      const observer = new ResizeObserver(measure);
       observer.observe(frameEl);
     }
 
