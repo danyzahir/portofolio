@@ -4,10 +4,9 @@
 User-agent: *
 Allow: /
 
-# Disallow source/build configuration files if any
+# Disallow source/build configuration files
 Disallow: /input.css
 Disallow: /tailwind.config.js
 
-# Sitemap location
+# Sitemap location — must use canonical HTTPS domain
 Sitemap: https://portofoliozcodes.my.id/sitemap.xml
-
