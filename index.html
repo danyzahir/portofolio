@@ -478,18 +478,8 @@
         <div id="coverflow-container" class="w-full relative reveal delay-300" style="--cf-card: clamp(320px, 44vw, 620px);">
           <div class="relative max-w-[1400px] mx-auto px-4 sm:px-6">
 
-            <!-- Navigation + Frame wrapper -->
-            <div class="relative flex items-center gap-2 sm:gap-4">
-
-              <!-- Prev Button -->
-              <button
-                id="coverflow-prev"
-                type="button"
-                aria-label="Previous project"
-                class="coverflow-nav-btn"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
+            <!-- Frame wrapper -->
+            <div class="relative flex items-center">
 
               <!-- Interactive 3D Frame -->
               <div
@@ -506,16 +496,6 @@
                   <!-- Dynamically populated Coverflow Cards -->
                 </div>
               </div>
-
-              <!-- Next Button -->
-              <button
-                id="coverflow-next"
-                type="button"
-                aria-label="Next project"
-                class="coverflow-nav-btn"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
             </div>
 
             <!-- Dots Pagination -->
@@ -1090,14 +1070,25 @@
       },
        {
         index: "08",
-        category: "Project 08 Monitoring Data Deployment",
+        category: "Project 08 • Monitoring Dashboard",
         title: "Monika - Monitoring Data Deployment",
-        description: "Sistem monitoring data deployment Berbasis website untuk mengatur data terpusat data deployment telkom",
+        description: "Sistem monitoring data deployment berbasis website untuk mengatur data terpusat data deployment telkom.",
         tags: ["PHP", "Laravel", "MySQL", "Tailwind CSS"],
         image: "projects/8.webp",
         imagePosition: "top center",
         demoUrl: "",
         domain: ""
+      },
+      {
+        index: "09",
+        category: "Project 09 • Visual Canvas",
+        title: "Workspace — Personal Visual Canvas",
+        description: "A sleek, minimal drag-and-drop digital workspace canvas built with Vue.js and Tailwind CSS. Features custom notes, bookmarks, checklists, file attachments, and local JSON backup/sync.",
+        tags: ["Vue.js", "JavaScript", "Tailwind CSS", "HTML5"],
+        image: "projects/9.webp",
+        imagePosition: "top center",
+        demoUrl: "https://workspace-three-sandy-24.vercel.app/",
+        domain: "workspace-three-sandy-24.vercel.app"
       }
     ];
 
@@ -1408,6 +1399,41 @@
 
       measure();
       window.addEventListener('resize', measure, { passive: true });
+
+      // Auto-play logic (slides automatically every 3 seconds, pauses on hover/touch)
+      let autoplayTimer = null;
+      const AUTOPLAY_INTERVAL = 3000; // 3 seconds per slide
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+          nudge(1);
+        }, AUTOPLAY_INTERVAL);
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      startAutoplay();
+
+      // Pause autoplay when user hovers or interacts with the carousel
+      container.addEventListener('mouseenter', stopAutoplay);
+      container.addEventListener('mouseleave', startAutoplay);
+      container.addEventListener('touchstart', stopAutoplay, { passive: true });
+      container.addEventListener('touchend', startAutoplay, { passive: true });
+
+      // Pause autoplay when page is in background tab
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      });
     }
 
     // Initialize Projects on Load
