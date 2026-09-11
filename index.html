@@ -475,7 +475,7 @@
         </div>
 
         <!-- 3D Coverflow Carousel Container -->
-        <div id="coverflow-container" class="w-full relative reveal delay-300" style="--cf-card: clamp(320px, 44vw, 620px);">
+        <div id="coverflow-container" class="w-full relative reveal delay-300" style="--cf-card: clamp(280px, 86vw, 620px);">
           <div class="relative max-w-[1400px] mx-auto px-4 sm:px-6">
 
             <!-- Frame wrapper -->
@@ -1393,7 +1393,11 @@
 
       // Zero-reflow Measurement
       const measure = () => {
-        width = Math.min(620, Math.max(320, window.innerWidth * 0.44));
+        if (window.innerWidth < 640) {
+          width = Math.min(480, Math.max(280, window.innerWidth * 0.86));
+        } else {
+          width = Math.min(620, Math.max(320, window.innerWidth * 0.44));
+        }
         paint();
       };
 
