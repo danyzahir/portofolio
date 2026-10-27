@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "www.portofoliozcodes.my.id" }],
       "destination": "https://portofoliozcodes.my.id/:path*",
       "permanent": true
