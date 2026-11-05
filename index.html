@@ -370,20 +370,131 @@
       <!-- ABOUT SECTION -->
       <section id="about" class="pt-10 sm:pt-16 pb-16 sm:pb-28 relative z-[5] border-t border-gray-800/60 overflow-hidden">
         <div class="bg-subtle-glow -right-20 top-1/4 w-[350px] h-[350px] bg-white/10"></div>
-        <div class="flex md:flex-row flex-col justify-between items-start gap-10">
-          <div class="flex-1">
-            <h2 class="font-poppins font-semibold xs:text-[48px] text-[36px] text-white xs:leading-[70px] leading-[50px] tracking-tight reveal-left">
+        <div class="flex lg:flex-row flex-col justify-between items-start gap-12 lg:gap-14">
+          <!-- Left Column: About Me Heading & Description -->
+          <div class="lg:w-5/12 w-full flex flex-col justify-start reveal-left">
+            <span class="section-label">Overview</span>
+            <h2 class="font-poppins font-semibold xs:text-[48px] text-[36px] text-white xs:leading-[64px] leading-[48px] tracking-tight mb-5">
               About Me
             </h2>
-          </div>
-          <div class="flex-1 md:mt-6">
-            <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[32px] reveal-right">
+            <p class="font-poppins font-normal text-dimWhite text-[16px] sm:text-[17px] leading-[30px] sm:leading-[32px] mb-8">
               I am Dany, a Diploma III (D3) Informatics Engineering graduate from Politeknik Negeri Indramayu
               and a full-stack software engineer crafting next-generation web ecosystems based in Indonesia.
               I specialize in engineering complete, end-to-end architectures. By combining highly responsive,
               custom-styled frontend experiences with robust and secure REST APIs, I translate ambitious concepts
               into scalable, production-ready digital products.
             </p>
+
+            <!-- Key Highlight Cards -->
+            <div class="grid grid-cols-2 gap-3 pt-6 border-t border-white/10">
+              <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/15 transition-all">
+                <div class="flex items-center gap-2 text-white/50 text-[11px] font-semibold uppercase tracking-wider mb-1.5">
+                  <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-white/70"></i>
+                  <span>Education</span>
+                </div>
+                <p class="text-white text-sm font-semibold">D3 Informatics Eng.</p>
+                <p class="text-dimWhite/60 text-xs mt-0.5">Politeknik Negeri Indramayu</p>
+              </div>
+              <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/15 transition-all">
+                <div class="flex items-center gap-2 text-white/50 text-[11px] font-semibold uppercase tracking-wider mb-1.5">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-white/70"></i>
+                  <span>Location</span>
+                </div>
+                <p class="text-white text-sm font-semibold">Cirebon, Indonesia</p>
+                <p class="text-emerald-400 text-xs mt-0.5 flex items-center gap-1.5 font-medium">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Available for Hire
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Project-Based Experience Timeline -->
+          <div class="lg:w-7/12 w-full reveal-right">
+            <div class="flex items-center justify-between mb-8">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-white/40 block mb-1">Career Journey</span>
+                <h3 class="font-poppins font-semibold text-2xl sm:text-3xl text-white tracking-tight flex items-center gap-3">
+                  Project-Based Experience
+                  <span class="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-dimWhite">3 Roles</span>
+                </h3>
+              </div>
+            </div>
+
+            <!-- The Vertical Timeline -->
+            <div class="relative border-l border-white/10 pl-6 sm:pl-8 space-y-6 sm:space-y-7 ml-2 sm:ml-3">
+              <!-- Timeline Item 1 -->
+              <div class="relative group timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card group-hover:translate-x-1">
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-white bg-white/10 px-2.5 py-0.5 rounded-md border border-white/10">Web Developer</span>
+                    <span class="text-xs font-mono text-dimWhite/70">Jan 2026 – Jul 2026</span>
+                  </div>
+                  <h4 class="font-poppins font-semibold text-[16px] sm:text-[18px] text-white mb-2.5">
+                    PT Telkom Cirebon — Deployment Monitoring System
+                  </h4>
+                  <ul class="space-y-1.5 text-dimWhite text-xs sm:text-[13px] leading-relaxed">
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-white/40 mt-1.5 shrink-0 group-hover:bg-white transition-colors"></span>
+                      <span>Managed deployment data, progress monitoring, and automated deployment activity reporting.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-white/40 mt-1.5 shrink-0 group-hover:bg-white transition-colors"></span>
+                      <span>Implemented centralized data management features and operational dashboards to improve team efficiency.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Timeline Item 2 -->
+              <div class="relative group timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card group-hover:translate-x-1">
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-white bg-white/10 px-2.5 py-0.5 rounded-md border border-white/10">Web Developer</span>
+                    <span class="text-xs font-mono text-dimWhite/70">Mar 2025 – Jun 2025</span>
+                  </div>
+                  <h4 class="font-poppins font-semibold text-[16px] sm:text-[18px] text-white mb-2.5">
+                    TKQ & SDIT Nahdlatut Tujjar — Digital Attendance System
+                  </h4>
+                  <ul class="space-y-1.5 text-dimWhite text-xs sm:text-[13px] leading-relaxed">
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-white/40 mt-1.5 shrink-0 group-hover:bg-white transition-colors"></span>
+                      <span>Developed a digital attendance system to automate daily attendance logging for staff and students.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-white/40 mt-1.5 shrink-0 group-hover:bg-white transition-colors"></span>
+                      <span>Implemented streamlined management features and administrative dashboards to simplify attendance monitoring.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Timeline Item 3 -->
+              <div class="relative group timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card group-hover:translate-x-1">
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-white bg-white/10 px-2.5 py-0.5 rounded-md border border-white/10">Web Developer</span>
+                    <span class="text-xs font-mono text-dimWhite/70">Mar 2024 – Jun 2024</span>
+                  </div>
+                  <h4 class="font-poppins font-semibold text-[16px] sm:text-[18px] text-white mb-2.5">
+                    SIJARENG Tutoring Platform Development
+                  </h4>
+                  <ul class="space-y-1.5 text-dimWhite text-xs sm:text-[13px] leading-relaxed">
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-white/40 mt-1.5 shrink-0 group-hover:bg-white transition-colors"></span>
+                      <span>Developed a comprehensive student grade and academic reporting system accessible for students and parents.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-white/40 mt-1.5 shrink-0 group-hover:bg-white transition-colors"></span>
+                      <span>Built an automated attendance management system and monthly payment tracking integrated with WhatsApp.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
