@@ -64,10 +64,18 @@
 .about-stat-label-desktop{font-size:0.8rem;color:rgba(255,255,255,0.45);font-weight:500;}
 
 /* ============================================================
-   EXPERIENCE TIMELINE (Exact Reference Matching)
+   ABOUT & EXPERIENCE 2-COLUMN SIDE-BY-SIDE LAYOUT
    ============================================================ */
-.experience-timeline{position:relative;padding-left:28px;}
-.experience-timeline::before{content:'';position:absolute;left:6px;top:-6px;bottom:12px;width:2px;background:#2a383d;border-radius:1px;}
+.about-experience-container{display:flex;flex-direction:column;gap:3rem;width:100%;}
+@media (min-width:860px){.about-experience-container{display:grid;grid-template-columns:1fr 1.15fr;gap:4.5rem;align-items:start;}}
+.about-desc-text{font-family:'Poppins',sans-serif;font-size:1.15rem;line-height:2.15rem;color:rgba(255,255,255,0.78);font-weight:400;}
+@media (max-width:767px){.about-desc-text{font-size:1.05rem;line-height:1.95rem;}}
+.experience-timeline{position:relative;padding-left:32px;display:flex;flex-direction:column;gap:2.75rem;}
+.experience-timeline::before{content:'';position:absolute;left:7px;top:-6px;bottom:12px;width:2px;background:#2a383d;border-radius:1px;}
 .experience-item{position:relative;}
-.experience-dot{position:absolute;left:-21px;top:5px;width:14px;height:14px;border-radius:50%;background:#2ed1bd;box-shadow:0 0 10px rgba(46,209,189,0.55);transform:translateX(-50%);transition:transform 0.25s ease,box-shadow 0.25s ease;z-index:2;}
-.experience-item:hover .experience-dot{transform:translateX(-50%) scale(1.25);box-shadow:0 0 16px rgba(46,209,189,0.9);}
+.experience-dot{position:absolute;left:-24px;top:7px;width:16px;height:16px;border-radius:50%;background:#2ed1bd;box-shadow:0 0 12px rgba(46,209,189,0.6);transform:translateX(-50%);transition:transform 0.25s ease,box-shadow 0.25s ease;z-index:2;}
+.experience-item:hover .experience-dot{transform:translateX(-50%) scale(1.25);box-shadow:0 0 18px rgba(46,209,189,0.95);}
+.experience-date{color:#2ed1bd;font-weight:600;font-size:1rem;letter-spacing:0.03em;display:block;margin-bottom:0.45rem;}
+.experience-role-title{color:#ffffff;font-weight:700;font-size:1.22rem;line-height:1.5;margin-bottom:0.75rem;}
+.experience-bullet-list{list-style-type:disc;list-style-position:outside;margin-left:1.25rem;display:flex;flex-direction:column;gap:0.65rem;color:rgba(255,255,255,0.72);font-size:1rem;line-height:1.75;}
+.experience-bullet-list li::marker{color:#2ed1bd;}
