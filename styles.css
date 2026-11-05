@@ -71,11 +71,11 @@
 .about-desc-text{font-family:'Poppins',sans-serif;font-size:1.15rem;line-height:2.15rem;color:rgba(255,255,255,0.78);font-weight:400;}
 @media (max-width:767px){.about-desc-text{font-size:1.05rem;line-height:1.95rem;}}
 .experience-timeline{position:relative;padding-left:32px;display:flex;flex-direction:column;gap:2.75rem;}
-.experience-timeline::before{content:'';position:absolute;left:7px;top:-6px;bottom:12px;width:2px;background:#2a383d;border-radius:1px;}
+.experience-timeline::before{content:'';position:absolute;left:7px;top:-6px;bottom:12px;width:2px;background:rgba(255,255,255,0.15);border-radius:1px;}
 .experience-item{position:relative;}
-.experience-dot{position:absolute;left:-24px;top:7px;width:16px;height:16px;border-radius:50%;background:#2ed1bd;box-shadow:0 0 12px rgba(46,209,189,0.6);transform:translateX(-50%);transition:transform 0.25s ease,box-shadow 0.25s ease;z-index:2;}
-.experience-item:hover .experience-dot{transform:translateX(-50%) scale(1.25);box-shadow:0 0 18px rgba(46,209,189,0.95);}
-.experience-date{color:#2ed1bd;font-weight:600;font-size:1rem;letter-spacing:0.03em;display:block;margin-bottom:0.45rem;}
+.experience-dot{position:absolute;left:-24px;top:7px;width:15px;height:15px;border-radius:50%;background:#ffffff;box-shadow:0 0 10px rgba(255,255,255,0.5);transform:translateX(-50%);transition:transform 0.25s ease,box-shadow 0.25s ease;z-index:2;}
+.experience-item:hover .experience-dot{transform:translateX(-50%) scale(1.25);box-shadow:0 0 18px rgba(255,255,255,0.9);}
+.experience-date{color:rgba(255,255,255,0.65);font-weight:500;font-size:0.95rem;letter-spacing:0.04em;display:block;margin-bottom:0.45rem;}
 .experience-role-title{color:#ffffff;font-weight:700;font-size:1.22rem;line-height:1.5;margin-bottom:0.75rem;}
 .experience-bullet-list{list-style-type:disc;list-style-position:outside;margin-left:1.25rem;display:flex;flex-direction:column;gap:0.65rem;color:rgba(255,255,255,0.72);font-size:1rem;line-height:1.75;}
-.experience-bullet-list li::marker{color:#2ed1bd;}
+.experience-bullet-list li::marker{color:rgba(255,255,255,0.45);}
